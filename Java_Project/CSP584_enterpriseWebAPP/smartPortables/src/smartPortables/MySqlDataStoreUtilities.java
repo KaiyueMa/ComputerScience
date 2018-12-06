@@ -10,7 +10,7 @@ public class MySqlDataStoreUtilities {
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/exampledatabase", "root", "michael95");
+			conn = DriverManager.getConnection("jdbc:mysql://****", "****", "****");
 		} catch (Exception e) {
 
 		}

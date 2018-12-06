@@ -7,9 +7,9 @@ public class ConnDB {
 	private Statement sm=null;
 	private ResultSet rs=null;
 	String driverName="com.mysql.jdbc.Driver";
-	String url="jdbc:mysql://localhost:3306/bike_sharing";
-	String user="root";
-	String passwd="michael95";	
+	String url="jdbc:mysql://****";
+	String user="****";
+	String passwd="****";	
 	public Connection getConn(){
 		
 		try {
