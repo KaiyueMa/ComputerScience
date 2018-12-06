@@ -1,0 +1,100 @@
+package bikeShare.servlet.front;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+
+
+import bikeShare.common.PageUtil;
+import bikeShare.dao.GoodDaoImpl;
+import bikeShare.dao.ImagePathDaoimpl;
+import bikeShare.model.Goods;
+import bikeShare.model.ImagePath;
+import bikeShare.service.GoodServiceImpl;
+
+/**
+ * Servlet implementation class ShowFrontHomeByPager
+ */
+@WebServlet(description = "������ҳչʾ��ÿ��5��", urlPatterns = { "/ShowFrontHomeByPager" })
+public class ShowFrontHomeByPager extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public ShowFrontHomeByPager() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+		String pn = request.getParameter("pn");
+		int pageNo=1;
+		if(pn!=null){
+			pageNo=Integer.parseInt(pn);
+			System.out.println("pageNow"+pageNo);
+		}
+		  ImagePathDaoimpl ipdi=new ImagePathDaoimpl();
+		 GoodDaoImpl gdi=new GoodDaoImpl();	
+		 PageUtil page = gdi.getGoodsByPage(pageNo,5);
+		 page.setPageNo(pageNo);
+			 
+		List<Goods> goodsList =(List<Goods>) page.getData();
+		 
+		for (int i = 0; i < goodsList.size(); i++) {
+			Goods goods = goodsList.get(i);
+				if(goods.getGoodsname().length()>11){
+					goods.setGoodsname(goods.getGoodsname().substring(0, 10)+"...");
+				}
+
+				ImagePath imagePathList = ipdi.queryByImageId(goods.getGoodsid().toString());
+				goods.setImgepath(imagePathList.getPath());
+				goodsList.set(i, goods);
+				
+			}
+
+		JSONObject jsonObject=new JSONObject();
+		if(null!=goodsList){
+			
+			jsonObject.put("data",goodsList);			
+		}
+		String returnString=JSON.toJSONString(jsonObject);
+		PrintWriter pw=null;
+		try {
+			response.setCharacterEncoding("UTF-8");
+			pw = response.getWriter();
+			pw.write(returnString);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(pw!=null){
+				pw.close();
+			}
+		}
+		   
+	     
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		this.doGet(request, response);
+	}
+
+}

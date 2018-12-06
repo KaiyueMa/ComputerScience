@@ -1,0 +1,32 @@
+package bikeShare.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import bikeShare.common.CrudModel;
+
+
+public class OrderDaoImpl {
+	
+	Connection  ct=null;
+	PreparedStatement ps=null;
+	ResultSet  rs=null;
+	
+	public int insertOrder(String paras[]){
+
+		int i=0;
+		String sql="insert into indent(userId,orderTime,isPay,isSend,goodsId) values(?,?,?,?,?)";
+		CrudModel  cmd=new CrudModel();
+		i=cmd.updExecute(sql, paras);
+		System.out.println("�������ֵ"+i);
+		return i;
+		
+		
+	}
+	
+	
+
+	
+
+}

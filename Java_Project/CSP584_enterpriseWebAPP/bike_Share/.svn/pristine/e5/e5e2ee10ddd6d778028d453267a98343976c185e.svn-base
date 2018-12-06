@@ -1,0 +1,46 @@
+package bikeShare.common;
+import java.sql.*;
+
+
+public class ConnDB {
+	private Connection ct=null;
+	private Statement sm=null;
+	private ResultSet rs=null;
+	String driverName="com.mysql.jdbc.Driver";
+	String url="jdbc:mysql://127.0.0.1:3306/bike_sharing";
+	String user="root";
+	String passwd="root";	
+	public Connection getConn(){
+		
+		try {
+			Class.forName(driverName);
+			ct=DriverManager.getConnection(url,user,passwd);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return ct;
+	}
+	
+	public void close(){
+		
+		try {
+			if(rs!=null){
+			rs.close();
+		}
+		if(sm!=null){
+			sm.close();
+		}
+		if(ct!=null){
+			ct.close();
+		}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		
+		
+	}
+
+}

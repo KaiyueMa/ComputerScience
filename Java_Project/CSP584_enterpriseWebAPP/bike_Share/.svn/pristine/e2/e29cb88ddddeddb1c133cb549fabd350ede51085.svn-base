@@ -1,0 +1,121 @@
+package bikeShare.servlet.front;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import net.sf.json.JSONObject;
+import bikeShare.dao.ActivityDaoImpl;
+import bikeShare.dao.AddressDaoImpl;
+import bikeShare.dao.CategoryDaoImpl;
+import bikeShare.dao.CommentDaoImpl;
+import bikeShare.dao.GoodDaoImpl;
+import bikeShare.dao.ImagePathDaoimpl;
+import bikeShare.dao.OrderDaoImpl;
+import bikeShare.dao.UserDaoImpl;
+import bikeShare.model.Activity;
+import bikeShare.model.Goods;
+import bikeShare.model.ImagePath;
+import bikeShare.model.User;
+
+/**
+ * Servlet implementation class ShowAddOrder
+ */
+@WebServlet(description = "展示订单列表", urlPatterns = { "/ShowAddOrder" })
+public class ShowAddOrder extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public ShowAddOrder() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		String flag=request.getParameter("flag");
+		System.out.println("flag的值"+flag);
+		if(flag.equals("addOrder")){
+			 String goodsId=request.getParameter("goodsid");
+			 HttpSession session=request.getSession();
+			   	User user;
+		        user=(User) session.getAttribute("user");
+		        if (user==null)
+		        {
+		         request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);	
+		        	
+		        }
+		        ImagePathDaoimpl ipdi=new ImagePathDaoimpl();
+				 GoodDaoImpl gdi=new GoodDaoImpl();	
+				
+				ActivityDaoImpl activityDaoImpl=new ActivityDaoImpl();	
+				Goods goods=gdi.queryGoodByPrimaryKey(goodsId); 
+				ImagePath imagePathList = ipdi.queryByImageId(goodsId);
+				goods.setImgepath(imagePathList.getPath());
+				Activity activity=activityDaoImpl.queryActivityByPramaryKey(goods.getActivityid()+"");
+				goods.setActivity(activity);
+				if(activity.getDiscount() != 1) {
+		                goods.setNewPrice(goods.getPrice()* activity.getDiscount());
+		           
+				 }else{
+					  goods.setNewPrice((float) (goods.getPrice()));
+				 } 
+		           request.setAttribute("goods", goods);
+		           request.setAttribute("user", user);
+		           request.getRequestDispatcher("/WEB-INF/views/orderConfirm.jsp").forward(request, response);	
+		} else  if(flag.equals("orderFinish")){
+			 String goodsId=request.getParameter("goodsid");
+			 String isPay=request.getParameter("isPay");
+			 HttpSession session=request.getSession();
+			   	User user;
+		        user=(User) session.getAttribute("user");
+		        OrderDaoImpl odi=new OrderDaoImpl();
+		        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	    		String time= sf.format(new Date());
+		        String paras[]={user.getUserid()+"",time,isPay,"1",goodsId};
+		       
+		        PrintWriter pw=null;
+				try {
+					 odi.insertOrder(paras);
+					response.setCharacterEncoding("UTF-8");
+					pw = response.getWriter();
+					pw.write(JSONObject.fromObject(bikeShare.model.Msg.success("租车成功")).toString());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					if(pw!=null){
+						pw.close();
+					}
+				}}
+			 
+		}
+		
+		
+		
+	
+		
+
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		this.doGet(request, response);
+	}
+
+}

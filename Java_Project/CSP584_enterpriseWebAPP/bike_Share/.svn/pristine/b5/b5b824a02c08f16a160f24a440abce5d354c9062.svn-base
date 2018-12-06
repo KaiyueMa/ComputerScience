@@ -1,0 +1,117 @@
+package bikeShare.servlet.front;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import net.sf.json.JSONObject;
+import bikeShare.dao.UserDaoImpl;
+import bikeShare.model.User;
+
+/**
+ * Servlet implementation class UserManageServlet
+ */
+@WebServlet(description = "处理登录等情况", urlPatterns = { "/UserManageServlet" })
+public class UserManageServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public UserManageServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+		String flag=request.getParameter("flag");
+		  UserDaoImpl udi=new UserDaoImpl();
+		if(flag.equals("loginconfirm")){
+			String confirmlogo=request.getParameter("confirmlogo");
+			String username=request.getParameter("username");
+			String password=request.getParameter("password");
+			HttpSession session=request.getSession();
+			 String verificationCode = (String) session.getAttribute("certCode");
+		        if (!confirmlogo.equals(verificationCode))
+		        {
+		          request.setAttribute("errorMsg", "验证码输入错误");
+		          request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);	
+
+		        }
+			
+		      
+		        if(udi.queryByClientNamePass(username, password)){
+		        	 User client=udi.getClientBean(username);
+		        	 session.setAttribute("user",client);
+		        	 request.getRequestDispatcher("/ShowFrontMainPage").forward(request, response);	
+		        }else{
+		        	  request.setAttribute("errorMsg", "验证码输入错误");
+		        	  request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);	
+		        }
+		      
+		        
+		}
+		
+		 if(flag.equals("information")){
+			   HttpSession session=request.getSession();
+			   	User user;
+		        user=(User) session.getAttribute("user");
+		        if (user==null)
+		        {
+		        	response.sendRedirect("/WEB-INF/views/login.jsp");
+		        }
+		        Integer  userId=user.getUserid();
+		        user=udi.queryUserByPramryKey(userId+"");
+		        request.setAttribute("user", user);
+		        request.getRequestDispatcher("/WEB-INF/views/information.jsp").forward(request, response);	
+		        
+		 }
+		
+		if(flag.equals("saveInfo")){
+			String name= request.getParameter("name");
+			String email=request.getParameter("email");
+			String telephone=request.getParameter("telephone");
+			    HttpSession session=request.getSession();
+			  
+			    
+			    User  user=(User) session.getAttribute("user");
+		      
+		        String paras[]={name,email,telephone,user.getUserid()+""};
+		        int i=udi.saveUserInformation(paras) ;
+		        PrintWriter pw=null;
+				try {
+					response.setCharacterEncoding("UTF-8");
+					pw = response.getWriter();
+					pw.write(JSONObject.fromObject(bikeShare.model.Msg.success("保存成功")).toString());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					if(pw!=null){
+						pw.close();
+					}
+				}}
+		
+		
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		this.doGet(request, response);
+	}
+
+}

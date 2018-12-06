@@ -1,0 +1,242 @@
+package bikeShare.servlet.admin;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+
+
+
+import bikeShare.common.PageUtil;
+import bikeShare.common.RespondTool;
+import bikeShare.dao.ActivityDaoImpl;
+import bikeShare.dao.AddressDaoImpl;
+import bikeShare.dao.CategoryDaoImpl;
+import bikeShare.dao.GoodDaoImpl;
+import bikeShare.dao.ImagePathDaoimpl;
+import bikeShare.model.Activity;
+import bikeShare.model.Address;
+import bikeShare.model.Category;
+import bikeShare.model.Goods;
+import bikeShare.model.ImagePath;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+
+/**
+ * Servlet implementation class AdminGoodServlet
+ */
+@WebServlet("/AdminGoodServlet")
+public class AdminGoodServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public AdminGoodServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		String flag=request.getParameter("flag");
+		System.out.println("flag的值"+flag);
+		AddressDaoImpl adi=new AddressDaoImpl();
+		CategoryDaoImpl cdi=new CategoryDaoImpl();
+		GoodDaoImpl gdi=new GoodDaoImpl();
+		ActivityDaoImpl activityadi=new ActivityDaoImpl();
+		ImagePathDaoimpl imagepathDao=new ImagePathDaoimpl();
+	if(flag.equals("goodshow")){
+		List<Address> alist=adi.queryAddresslist();
+		List<Category>  clist=cdi.queryListCategory();
+		List<Activity>  activityList=activityadi.selectALLActivity();
+		request.setAttribute("categoryList", clist);
+		request.setAttribute("addressList", alist);
+		request.setAttribute("activityList", activityList);
+		request.getRequestDispatcher("/WEB-INF/views/adminAllGoods.jsp").forward(request, response);	
+		}
+		
+	if(flag.equals("showjson")){	
+		String pn = request.getParameter("page");
+		int pageNo=1;
+		if(pn!=null){
+			pageNo=Integer.parseInt(pn);
+			System.out.println("pageNow"+pageNo);
+		}
+		  ImagePathDaoimpl ipdi=new ImagePathDaoimpl();
+		
+		 PageUtil page = gdi.getGoodsByPage(pageNo,5);
+		 page.setPageNo(pageNo);
+		
+		 
+		List<Goods> goodsList =(List<Goods>) page.getData();
+		 
+		for (int i = 0; i < goodsList.size(); i++) {
+			Goods goods = goodsList.get(i);
+				if(goods.getGoodsname().length()>11){
+					goods.setGoodsname(goods.getGoodsname().substring(0, 10)+"...");
+				}
+				
+
+				ImagePath imagePathList = ipdi.queryByImageId(goods.getGoodsid().toString());
+				goods.setImgepath(imagePathList.getPath());
+				goodsList.set(i, goods);
+				
+			}
+
+		
+		JSONObject jsonObject=new JSONObject();
+		if(null!=goodsList){
+			
+			jsonObject.put("data",goodsList);
+			jsonObject.put("pageInfo", page);
+				
+		}
+		
+		String returnString=JSON.toJSONString(jsonObject);
+
+		PrintWriter pw=null;
+		try {
+			response.setCharacterEncoding("UTF-8");
+			pw = response.getWriter();
+			pw.write(returnString);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(pw!=null){
+				pw.close();
+			}
+		}
+		   
+	}
+	if(flag.equals("updateGood")){
+		String goodsid = request.getParameter("goodsid");
+		String goodsname = request.getParameter("goodsname");
+		String price = request.getParameter("price");
+		String num = request.getParameter("num");
+		String description = request.getParameter("description");
+		String category = request.getParameter("category");
+		String address = request.getParameter("address");
+		String statue = request.getParameter("statue");
+		String activity = request.getParameter("activity");
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String time = sf.format(new Date());
+		
+		String paras[]={goodsname,time,category,description,activity,price,num,address,statue,goodsid};
+		//String sql="update goods set  goodsName=?, upTime=? , category=?, description =?, activityId=? , price =? ,num =?, address =?,  statue =? where goodsId=?";
+		if(gdi.updateGoods(paras)==1){
+			RespondTool.getNewsString(request, response, "更新成功", 100);
+		}else{
+			RespondTool.getNewsString(request, response, "更新失败", 200);
+		}
+	}
+	if(flag.equals("deleteGood")){
+		String goodsid = request.getParameter("goodsid");
+		String paras[]={goodsid};
+		if(gdi.deleteGoods(paras)==1){
+			RespondTool.getNewsString(request, response, "删除成功", 100);
+		}else{
+			RespondTool.getNewsString(request, response, "删除失败", 200);
+		}
+	}
+	if(flag.equals("addGood")){
+		
+		List<Address> alist=adi.queryAddresslist();
+		List<Category>  clist=cdi.queryListCategory();
+		List<Activity>  activityList=activityadi.selectALLActivity();
+		request.setAttribute("categoryList", clist);
+		request.setAttribute("addressList", alist);
+		request.setAttribute("activityList", activityList);
+		request.getRequestDispatcher("/WEB-INF/views/addGoods.jsp").forward(request, response);	
+	}
+	/*if(flag.equals("addGoodsSuccess")){
+		
+		com.jspsmart.upload.SmartUpload su = new  com.jspsmart.upload.SmartUpload();
+		   su.initialize(pageContext);
+		   su.service(request, response);
+		   su.setTotalMaxFileSize(100000000);
+		   su.setAllowedFilesList("zip,rar");
+		   su.setDeniedFilesList("exe,bat,jsp,htm,html,,");
+		   su.upload();
+		   String Name = su.getRequest().getParameter("Name");
+		   String TYPE_ID = su.getRequest().getParameter("Type");
+		
+		String goodsname = request.getParameter("goodsname");
+		String activity = request.getParameter("activity");
+		String price = request.getParameter("price");
+		String num = request.getParameter("num");
+		String description = request.getParameter("description");
+		String category = request.getParameter("category");
+		String address = request.getParameter("address");
+		//String sql="insert into goods(goodsName,category,description,activityId,price,num,address) values(?,?,?,?,?,?,?)";
+		String paras[]={ goodsname,category,description,activity,price,num,address};
+		int lastId=0;
+		if(gdi.insertGoodsInfo(paras)==1){
+			 lastId=gdi.queryLastGoodsId();
+		}				
+		// 对请求包设置编码
+		request.setCharacterEncoding("utf-8");
+		// 告知tomcat如何编码,浏览器如何解码
+	    response.setContentType("text/html; charset=utf-8");
+
+		//获得项目的根目录,并设计文件保存路径
+	   String filePath=getServletContext().getRealPath("/shopimage");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMddHHmmss");
+		// 为了简单，后面也直接就以fileName作为保存文件的名称
+	
+		String fileName=dateFormat.format(new Date())+".jpg";
+
+		//获取文件类型和大小
+		Part part = request.getPart("file");
+		System.out.println(part.getContentType());
+		System.out.println(part.getSize());
+
+		Collection<String> headerNames = part.getHeaderNames();
+
+		// 遍历文件上传域的Header Name
+		for (String headerName : headerNames) {
+		System.out.println(headerName + "---->" + part.getHeader(headerName));
+
+		}
+		// 将文件保存到项目下的uploads文件夹下，为了简单这里没写判断目录是否存在及创建目录的操作，要先确保该目录已经存在
+		part.write(filePath + "/" + fileName);
+		System.out.println("文件保存在："+filePath+fileName); 
+		
+		String paras2[]={lastId+"",fileName};
+    if(imagepathDao.insertImagePath(paras2)==1){
+    	request.setAttribute("msg", "添加成功");
+		request.getRequestDispatcher("/WEB-INF/views/addGoods.jsp").forward(request, response);	
+			
+		}else{
+			request.setAttribute("msg", "添加失败");
+			request.getRequestDispatcher("/WEB-INF/views/addGoods.jsp").forward(request, response);	
+		}
+		
+		}*/
+		
+		
+	}
+	
+	
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		this.doGet(request, response);
+	}
+
+}

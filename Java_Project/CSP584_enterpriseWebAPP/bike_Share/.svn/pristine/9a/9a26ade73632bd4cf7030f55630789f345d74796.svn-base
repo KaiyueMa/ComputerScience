@@ -1,0 +1,129 @@
+package bikeShare.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import bikeShare.common.ConnDB;
+import bikeShare.common.CrudModel;
+import bikeShare.common.PageUtil;
+import bikeShare.model.Goods;
+import bikeShare.model.ImagePath;
+
+public class GoodDaoImpl {
+	
+	Connection  ct=null;
+	PreparedStatement ps=null;
+	ResultSet  rs=null;
+	
+	public  List<Goods>  queryAllGood() {
+		ArrayList<Goods> ablist=new ArrayList<Goods>();
+		String sql="select * from goods ";
+		CrudModel  cmd=new CrudModel();
+		rs=cmd.queryAll(sql);
+		
+		try {	
+			while(rs.next()){
+				Goods  good=new Goods();
+				good.setGoodsid(rs.getInt(1));
+				good.setGoodsname(rs.getNString(2));
+				good.setUptime(rs.getTime(3));
+				good.setCategoryId(rs.getInt(4));
+				good.setDescription(rs.getNString(5));
+				good.setActivityid(rs.getInt(6));
+				good.setPrice(rs.getInt(7));
+				good.setNum(rs.getInt(8));
+				good.setStatue(rs.getInt(9));
+				good.setAddress(rs.getInt(10));				
+				ablist.add(good);	
+				}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		}finally{
+			new ConnDB().close();
+		}
+		return ablist;	
+	}
+	
+	
+	public  Goods queryGoodByPrimaryKey(String  id) {
+		System.out.println("传入的参数ID"+id);
+		Goods good=null;
+		String sql="select * from goods where goodsId=?";
+		String  paras[]={id};
+		CrudModel  cmd=new CrudModel();
+		rs=cmd.queryExecute(sql, paras);	
+	
+		try {
+			
+		
+			while(rs.next()){
+			 good=new Goods();
+				good.setGoodsid(rs.getInt(1));
+				good.setGoodsname(rs.getNString(2));
+				good.setUptime(rs.getTime(3));
+				good.setCategoryId(rs.getInt(4));
+				good.setDescription(rs.getNString(5));
+				good.setActivityid(rs.getInt(6));
+				good.setPrice(rs.getInt(7));
+				good.setNum(rs.getInt(8));
+				good.setStatue(rs.getInt(9));
+				good.setAddress(rs.getInt(10));				
+				
+				}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		}finally{
+			new ConnDB().close();
+		}
+		
+		return good;	
+		
+	}
+	
+	public PageUtil  getGoodsByPage(int pageNo, int pageSize){
+		
+		
+		ArrayList<Goods> ablist=new ArrayList<Goods>();
+		
+		CrudModel  cmd=new CrudModel();
+		
+		PageUtil page = null;
+		try {
+			int totalCount=0;
+			String sql="select  count(*) from goods " ;
+			rs=cmd.queryAll(sql);	
+			while(rs.next()){
+				totalCount=rs.getInt(1);
+			}
+			String sql2="select * from  goods limit "+((pageNo-1)*pageSize+3)+","+pageSize;
+			rs=cmd.queryAll(sql2);
+			while(rs.next()){
+				Goods  good=new Goods();
+				good.setGoodsid(rs.getInt(1));
+				good.setGoodsname(rs.getNString(2));
+				good.setUptime(rs.getTime(3));
+				good.setCategoryId(rs.getInt(4));
+				good.setDescription(rs.getNString(5));
+				good.setActivityid(rs.getInt(6));
+				good.setPrice(rs.getInt(7));
+				good.setNum(rs.getInt(8));
+				good.setStatue(rs.getInt(9));
+				good.setAddress(rs.getInt(10));				
+				ablist.add(good);	
+				}
+			page = new PageUtil(pageSize, totalCount);
+            page.setData(ablist);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}		
+		return page;		
+	}	
+}

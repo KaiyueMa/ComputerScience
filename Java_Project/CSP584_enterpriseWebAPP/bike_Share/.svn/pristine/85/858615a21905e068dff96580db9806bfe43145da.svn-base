@@ -1,0 +1,19 @@
+package bikeShare.common;
+
+
+public class Tools {
+	//提供一个方法，将乱码转成UTF-8
+	public static String  getNewsString(String input){
+		String  result="";
+		
+		try {
+			result=new String (input.getBytes("iso-8859_1"),"UTF-8");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		}
+	return result;
+	}
+}
+

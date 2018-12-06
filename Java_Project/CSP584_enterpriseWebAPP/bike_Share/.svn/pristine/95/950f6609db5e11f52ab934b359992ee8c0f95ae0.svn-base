@@ -1,0 +1,96 @@
+package bikeShare.common;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+
+
+
+
+public class CrudModel {
+
+	
+	
+	Connection  ct=null;
+	PreparedStatement ps=null;
+	ResultSet  rs=null;
+	//查询所有的
+	public  ResultSet queryAll(String sql){
+		try {
+			ct=new ConnDB().getConn();
+			ps=ct.prepareStatement(sql);
+
+			rs=ps.executeQuery();
+		} catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		}finally{
+			//关闭数据模型
+			new ConnDB().close();
+			
+		}
+		return rs;
+	}
+	
+	
+	//按条件查询
+	public  ResultSet  queryExecute(String sql,String []paras){
+
+		try {
+			ct=new ConnDB().getConn();
+			ps=ct.prepareStatement(sql);
+			for (int i = 0; i<paras.length; i++) {
+				ps.setString(i+1,paras[i]);
+				
+			}
+			rs=ps.executeQuery();
+		} catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		}finally{
+			//关闭数据模型
+			new ConnDB().close();
+			
+		}
+		return rs;
+	}
+	
+	
+	
+	
+	//删查改模型
+	public int updExecute(String sql,String []paras){
+		
+	    //根据输入的sql语句完成添加任务
+		int b=0;
+		
+		try {
+		
+			ct=new ConnDB().getConn();
+			ps=ct.prepareStatement(sql);
+
+			for (int i = 0; i<paras.length; i++) {
+				ps.setString(i+1,paras[i]);
+				
+			}
+		
+			 b=ps.executeUpdate();
+			 System.out.println("模型结果的值"+b);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		
+	
+			
+			// TODO: handle exception
+		}finally{
+			
+			new ConnDB().close();
+		}
+		System.out.println("模型nui的值"+b);
+		return b;
+		
+	}
+}

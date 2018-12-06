@@ -1,0 +1,1063 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ProductCatalog>
+
+<Wearable_TechnologyCatalog>
+    <wearable_Technology id="watch 1">
+        <name>watch 1</name>
+        <price>399.99</price>
+        <image>watch1.jpeg</image>
+        <label>Fitness_Watches</label>
+        <condition>New</condition>
+        <discount>10.0</discount>
+        <saleDate>2018-10-12</saleDate>
+        <quantiltiesOfAvailable>12</quantiltiesOfAvailable>
+        <numberOfItems>20</numberOfItems>
+        <totalSales>6</totalSales>
+        <accessories>
+            <accessory>watch_a1</accessory>
+            <accessory>watch_a2</accessory>
+			<accessory>watch_a3</accessory>
+            <accessory>watch_a4</accessory>
+			<accessory>watch_a5</accessory>
+            <accessory>watch_a6</accessory>
+			<accessory>watch_a7</accessory>	
+        </accessories>
+        <warranties>
+            <warranty>watch_war</warranty>	
+        </warranties>
+    </wearable_Technology>
+    
+    <wearable_Technology id="watch 2">
+        <name>watch 2</name>
+        <price>399.99</price>
+        <image>watch2.jpg</image>
+        <label>Fitness_Watches</label>
+        <condition>New</condition>
+        <discount>10.0</discount>
+        <saleDate>2018-10-13</saleDate>
+        <quantiltiesOfAvailable>7</quantiltiesOfAvailable>
+        <numberOfItems>27</numberOfItems>
+        <totalSales>5</totalSales>
+        <accessories>
+            <accessory>watch_a1</accessory>
+            <accessory>watch_a2</accessory>
+			<accessory>watch_a3</accessory>
+            <accessory>watch_a4</accessory>
+			<accessory>watch_a5</accessory>
+            <accessory>watch_a6</accessory>
+			<accessory>watch_a7</accessory>	
+        </accessories>
+        <warranties>
+            <warranty>watch_war</warranty>	
+        </warranties>
+        
+    </wearable_Technology>
+    
+     <wearable_Technology id="watch 3">
+        <name>watch 3</name>
+        <price>399.99</price>
+        <image>watch3.jpg</image>
+        <label>Fitness_Watches</label>
+        <condition>New</condition>
+        <discount>10.0</discount>
+        <saleDate>2018-10-14</saleDate>
+        <quantiltiesOfAvailable>10</quantiltiesOfAvailable>
+        <numberOfItems>23</numberOfItems>
+        <totalSales>3</totalSales>
+        <accessories>
+            <accessory>watch_a1</accessory>
+            <accessory>watch_a2</accessory>
+			<accessory>watch_a3</accessory>
+            <accessory>watch_a4</accessory>
+			<accessory>watch_a5</accessory>
+            <accessory>watch_a6</accessory>
+			<accessory>watch_a7</accessory>		
+        </accessories>
+        <warranties>
+            <warranty>watch_war</warranty>	
+        </warranties>
+    </wearable_Technology>
+    
+     <wearable_Technology id="watch 4">
+        <name>watch 4</name>
+        <price>399.99</price>
+        <image>watch4.jpg</image>
+        <label>Fitness_Watches</label>
+        <condition>New</condition>
+        <discount>10.0</discount>
+        <saleDate>2018-10-15</saleDate>
+        <quantiltiesOfAvailable>9</quantiltiesOfAvailable>
+        <numberOfItems>19</numberOfItems>
+        <totalSales>7</totalSales>
+        <accessories>
+            <accessory>watch_a1</accessory>
+            <accessory>watch_a2</accessory>
+			<accessory>watch_a3</accessory>
+            <accessory>watch_a4</accessory>
+			<accessory>watch_a5</accessory>
+            <accessory>watch_a6</accessory>
+			<accessory>watch_a7</accessory>		
+        </accessories>
+        <warranties>
+            <warranty>watch_war</warranty>	
+        </warranties>
+    </wearable_Technology>
+    
+     <wearable_Technology id="watch 5">
+        <name>watch 5</name>
+        <price>399.99</price>
+        <image>watch5.jpg</image>
+        <label>Fitness_Watches</label>
+        <condition>New</condition>
+        <discount>10.0</discount>
+        <saleDate>2018-10-16</saleDate>
+        <quantiltiesOfAvailable>9</quantiltiesOfAvailable>
+        <numberOfItems>19</numberOfItems>
+        <totalSales>8</totalSales>
+        <accessories>
+            <accessory>watch_a1</accessory>
+            <accessory>watch_a2</accessory>
+			<accessory>watch_a3</accessory>
+            <accessory>watch_a4</accessory>
+			<accessory>watch_a5</accessory>
+            <accessory>watch_a6</accessory>
+			<accessory>watch_a7</accessory>		
+        </accessories>
+        <warranties>
+            <warranty>watch_war</warranty>	
+        </warranties>
+    </wearable_Technology>
+    
+     <wearable_Technology id="watch 6">
+        <name>watch 6</name>
+        <price>399.99</price>
+        <image>watch6.png</image>
+        <label>Fitness_Watches</label>
+        <condition>New</condition>
+        <discount>10.0</discount>
+        <saleDate>2018-10-17</saleDate>
+        <quantiltiesOfAvailable>8</quantiltiesOfAvailable>
+        <numberOfItems>18</numberOfItems>
+        <totalSales>9</totalSales>
+        <accessories>
+            <accessory>watch_a1</accessory>
+            <accessory>watch_a2</accessory>
+			<accessory>watch_a3</accessory>
+            <accessory>watch_a4</accessory>
+			<accessory>watch_a5</accessory>
+            <accessory>watch_a6</accessory>
+			<accessory>watch_a7</accessory>		
+        </accessories>
+        <warranties>
+            <warranty>watch_war</warranty>	
+        </warranties>
+    </wearable_Technology>
+    
+     <wearable_Technology id="watch 7">
+        <name>watch 7</name>
+        <price>399.99</price>
+        <image>watch7.jpg</image>
+        <label>Fitness_Watches</label>
+        <condition>New</condition>
+        <discount>10.0</discount>
+        <saleDate>2018-10-18</saleDate>
+        <quantiltiesOfAvailable>6</quantiltiesOfAvailable>
+        <numberOfItems>19</numberOfItems>
+        <totalSales>4</totalSales>
+        <accessories>
+            <accessory>watch_a1</accessory>
+            <accessory>watch_a2</accessory>
+			<accessory>watch_a3</accessory>
+            <accessory>watch_a4</accessory>
+			<accessory>watch_a5</accessory>
+            <accessory>watch_a6</accessory>
+			<accessory>watch_a7</accessory>		
+        </accessories>
+        <warranties>
+            <warranty>watch_war</warranty>	
+        </warranties>
+    </wearable_Technology>
+    
+     <wearable_Technology id="watch 8">
+        <name>watch 8</name>
+        <price>399.99</price>
+        <image>watch8.jpeg</image>
+        <label>Fitness_Watches</label>
+        <condition>New</condition>
+        <discount>10.0</discount>
+        <saleDate>2018-10-19</saleDate>
+        <quantiltiesOfAvailable>2</quantiltiesOfAvailable>
+        <numberOfItems>17</numberOfItems>
+        <totalSales>9</totalSales>
+        <accessories>
+            <accessory>watch_a1</accessory>
+            <accessory>watch_a2</accessory>
+			<accessory>watch_a3</accessory>
+            <accessory>watch_a4</accessory>
+			<accessory>watch_a5</accessory>
+            <accessory>watch_a6</accessory>
+			<accessory>watch_a7</accessory>		
+        </accessories>
+        <warranties>
+            <warranty>watch_war</warranty>	
+        </warranties>
+    </wearable_Technology>
+    
+     <wearable_Technology id="watch 9">
+        <name>watch 9</name>
+        <price>399.99</price>
+        <image>watch9.jpeg</image>
+        <label>Fitness_Watches</label>
+        <condition>New</condition>
+        <discount>10.0</discount>
+        <saleDate>2018-10-20</saleDate>
+        <quantiltiesOfAvailable>10</quantiltiesOfAvailable>
+        <numberOfItems>24</numberOfItems>
+        <totalSales>7</totalSales>
+        <accessories>
+           <accessory>watch_a1</accessory>
+            <accessory>watch_a2</accessory>
+			<accessory>watch_a3</accessory>
+            <accessory>watch_a4</accessory>
+			<accessory>watch_a5</accessory>
+            <accessory>watch_a6</accessory>
+			<accessory>watch_a7</accessory>		
+        </accessories>
+        <warranties>
+            <warranty>watch_war</warranty>	
+        </warranties>
+    </wearable_Technology>
+    
+    <wearable_Technology id="watch 10">
+        <name>watch 10</name>
+        <price>399.99</price>
+        <image>watch10.jpg</image>
+        <label>Fitness_Watches</label>
+        <condition>New</condition>
+        <discount>10.0</discount>
+        <saleDate>2018-10-21</saleDate>
+        <quantiltiesOfAvailable>7</quantiltiesOfAvailable>
+        <numberOfItems>23</numberOfItems>
+        <totalSales>5</totalSales>
+        <accessories>
+            <accessory>watch_a1</accessory>
+            <accessory>watch_a2</accessory>
+			<accessory>watch_a3</accessory>
+            <accessory>watch_a4</accessory>
+			<accessory>watch_a5</accessory>
+            <accessory>watch_a6</accessory>
+			<accessory>watch_a7</accessory>		
+        </accessories>
+        <warranties>
+            <warranty>watch_war</warranty>	
+        </warranties>
+    </wearable_Technology>
+    
+     
+    
+
+	<wearable_Technology id="Smart Watch 1">
+        <name>Smart Watch 1</name>
+        <price>349.99</price>
+        <image>sw1.jpg</image>
+        <label>Smart_Watches</label>
+        <condition>New</condition>
+        <discount>10.0</discount>
+        <saleDate>2018-9-12</saleDate>
+        <quantiltiesOfAvailable>11</quantiltiesOfAvailable>
+        <numberOfItems>24</numberOfItems>
+        <totalSales>8</totalSales>
+        <accessories>
+            <accessory>ps4_wc</accessory>			
+        </accessories>
+        <warranties>
+            <warranty>Smwatch_war</warranty>	
+        </warranties>
+        
+    </wearable_Technology>
+    
+    
+    <wearable_Technology id="Smart Watch 2">
+        <name>Smart Watch 2</name>
+        <price>349.99</price>
+        <image>sw2.jpg</image>
+        <label>Smart_Watches</label>
+        <condition>New</condition>
+        <discount>10.0</discount>
+        <saleDate>2018-9-13</saleDate>
+        <quantiltiesOfAvailable>8</quantiltiesOfAvailable>
+        <numberOfItems>19</numberOfItems>
+        <totalSales>7</totalSales>
+        <accessories>
+            <accessory>ps4_wc</accessory>			
+        </accessories>
+        <warranties>
+            <warranty>Smwatch_war</warranty>	
+        </warranties>
+        
+    </wearable_Technology>
+    
+    <wearable_Technology id="Smart Watch 3">
+        <name>Smart Watch 3</name>
+        <price>349.99</price>
+        <image>sw3.jpg</image>
+        <label>Smart_Watches</label>
+        <condition>New</condition>
+        <discount>10.0</discount>
+        <saleDate>2018-9-14</saleDate>
+        <quantiltiesOfAvailable>13</quantiltiesOfAvailable>
+        <numberOfItems>23</numberOfItems>
+        <totalSales>7</totalSales>
+        <accessories>
+            <accessory>ps4_wc</accessory>			
+        </accessories>
+        <warranties>
+            <warranty>Smwatch_war</warranty>	
+        </warranties>
+        
+    </wearable_Technology>
+    
+    <wearable_Technology id="Smart Watch 4">
+        <name>Smart Watch 4</name>
+        <price>349.99</price>
+        <image>sw4.jpg</image>
+        <label>Smart_Watches</label>
+        <condition>New</condition>
+        <discount>10.0</discount>
+        <saleDate>2018-9-15</saleDate>
+        <quantiltiesOfAvailable>16</quantiltiesOfAvailable>
+        <numberOfItems>26</numberOfItems>
+        <totalSales>7</totalSales>
+        <accessories>
+            <accessory>ps4_wc</accessory>			
+        </accessories>
+        <warranties>
+            <warranty>Smwatch_war</warranty>	
+        </warranties>
+        
+    </wearable_Technology>
+    
+    <wearable_Technology id="Smart Watch 5">
+        <name>Smart Watch 5</name>
+        <price>349.99</price>
+        <image>sw5.jpg</image>
+        <label>Smart_Watches</label>
+        <condition>New</condition>
+        <discount>10.0</discount>
+        <saleDate>2018-9-16</saleDate>
+        <quantiltiesOfAvailable>8</quantiltiesOfAvailable>
+        <numberOfItems>20</numberOfItems>
+        <totalSales>8</totalSales>
+        <accessories>
+            <accessory>ps4_wc</accessory>			
+        </accessories>
+        <warranties>
+            <warranty>Smwatch_war</warranty>	
+        </warranties>
+        
+    </wearable_Technology>
+    
+    <wearable_Technology id="Smart Watch 6">
+        <name>Smart Watch 6</name>
+        <price>349.99</price>
+        <image>sw6.jpg</image>
+        <label>Smart_Watches</label>
+        <condition>New</condition>
+        <discount>10.0</discount>
+        <saleDate>2018-9-17</saleDate>
+        <quantiltiesOfAvailable>8</quantiltiesOfAvailable>
+        <numberOfItems>28</numberOfItems>
+        <totalSales>9</totalSales>
+        <accessories>
+            <accessory>ps4_wc</accessory>			
+        </accessories>
+        <warranties>
+            <warranty>Smwatch_war</warranty>	
+        </warranties>
+        
+    </wearable_Technology>
+    
+    <wearable_Technology id="Smart Watch 7">
+        <name>Smart Watch 7</name>
+        <price>349.99</price>
+        <image>sw7.jpg</image>
+        <label>Smart_Watches</label>
+        <condition>New</condition>
+        <discount>10.0</discount>
+        <saleDate>2018-9-18</saleDate>
+        <quantiltiesOfAvailable>19</quantiltiesOfAvailable>
+        <numberOfItems>30</numberOfItems>
+        <totalSales>6</totalSales>
+        <accessories>
+            <accessory>ps4_wc</accessory>			
+        </accessories>
+        <warranties>
+            <warranty>Smwatch_war</warranty>	
+        </warranties>
+        
+    </wearable_Technology>
+    
+    <wearable_Technology id="Smart Watch 8">
+        <name>Smart Watch 8</name>
+        <price>349.99</price>
+        <image>sw8.jpg</image>
+        <label>Smart_Watches</label>
+        <condition>New</condition>
+        <discount>10.0</discount>
+        <saleDate>2018-9-19</saleDate>
+        <quantiltiesOfAvailable>2</quantiltiesOfAvailable>
+        <numberOfItems>20</numberOfItems>
+        <totalSales>8</totalSales>
+        <accessories>
+            <accessory>ps4_wc</accessory>			
+        </accessories>
+        <warranties>
+            <warranty>Smwatch_war</warranty>	
+        </warranties>
+        
+    </wearable_Technology>
+    
+    <wearable_Technology id="Smart Watch 9">
+        <name>Smart Watch 9</name>
+        <price>349.99</price>
+        <image>sw9.jpg</image>
+        <label>Smart_Watches</label>
+        <condition>New</condition>
+        <discount>10.0</discount>
+        <saleDate>2018-9-20</saleDate>
+        <quantiltiesOfAvailable>7</quantiltiesOfAvailable>
+        <numberOfItems>19</numberOfItems>
+        <totalSales>6</totalSales>
+        <accessories>
+            <accessory>ps4_wc</accessory>			
+        </accessories>
+        <warranties>
+            <warranty>Smwatch_war</warranty>	
+        </warranties>
+        
+    </wearable_Technology>
+    
+    <wearable_Technology id="Smart Watch 10">
+        <name>Smart Watch 10</name>
+        <price>349.99</price>
+        <image>sw0.jpg</image>
+        <label>Smart_Watches</label>
+        <condition>New</condition>
+        <discount>10.0</discount>
+        <saleDate>2018-9-21</saleDate>
+        <quantiltiesOfAvailable>6</quantiltiesOfAvailable>
+        <numberOfItems>26</numberOfItems>
+        <totalSales>8</totalSales>
+        <accessories>
+            <accessory>ps4_wc</accessory>			
+        </accessories>
+        <warranties>
+            <warranty>Smwatch_war</warranty>	
+        </warranties>
+        
+    </wearable_Technology>
+    
+    
+    <wearable_Technology id="WII">
+        <name>WII</name>
+        <price>249.99</price>
+        <image>Wii-Console.png</image>
+        <label>Headphones</label>
+        <condition>New</condition>
+        <discount>10.0</discount>
+        <saleDate>2018-9-22</saleDate>
+        <quantiltiesOfAvailable>12</quantiltiesOfAvailable>
+        <numberOfItems>26</numberOfItems>
+        <totalSales>7</totalSales>
+        <accessories>
+            <accessory>nintendo_wc</accessory>
+            <accessory>nintendo_sh</accessory>
+        </accessories>
+    </wearable_Technology>
+    
+</Wearable_TechnologyCatalog>
+
+
+<PhoneCatalog>
+
+
+	<phone id="Feature Phone 1">
+        <name>Feature Phone 1</name>
+        <price>50.99</price>
+        <image>fp1.jpg</image>
+        <label>Feature Phone</label>
+        <condition>New</condition>
+        <discount>15.0</discount>
+        <accessories>
+            <accessory>nintendo_wc</accessory>
+            <accessory>nintendo_wc</accessory>
+        </accessories>
+        <warranties>
+            <warranty>fp_war</warranty>	
+        </warranties>
+	</phone>
+	
+	<phone id="Feature Phone 2">
+        <name>Feature Phone 2</name>
+        <price>50.99</price>
+        <image>fp2.jpg</image>
+        <label>Feature Phone</label>
+        <condition>New</condition>
+        <discount>15.0</discount>
+        <accessories>
+            <accessory>nintendo_wc</accessory>
+            <accessory>nintendo_wc</accessory>
+        </accessories>
+        <warranties>
+            <warranty>fp_war</warranty>	
+        </warranties>
+	</phone>
+	
+	<phone id="Feature Phone 3">
+        <name>Feature Phone 3</name>
+        <price>50.99</price>
+        <image>fp3.jpeg</image>
+        <label>Feature Phone</label>
+        <condition>New</condition>
+        <discount>15.0</discount>
+        <accessories>
+            <accessory>nintendo_wc</accessory>
+            <accessory>nintendo_wc</accessory>
+        </accessories>
+        <warranties>
+            <warranty>fp_war</warranty>	
+        </warranties>
+	</phone>
+	
+	<phone id="Feature Phone 4">
+        <name>Feature Phone 4</name>
+        <price>50.99</price>
+        <image>fp4.jpg</image>
+        <label>Feature Phone</label>
+        <condition>New</condition>
+        <discount>15.0</discount>
+        <accessories>
+            <accessory>nintendo_wc</accessory>
+            <accessory>nintendo_wc</accessory>
+        </accessories>
+        <warranties>
+            <warranty>fp_war</warranty>	
+        </warranties>
+	</phone>
+	
+	<phone id="Feature Phone 5">
+        <name>Feature Phone 5</name>
+        <price>50.99</price>
+        <image>fp5.jpg</image>
+        <label>Feature Phone</label>
+        <condition>New</condition>
+        <discount>15.0</discount>
+        <accessories>
+            <accessory>nintendo_wc</accessory>
+            <accessory>nintendo_wc</accessory>
+        </accessories>
+        <warranties>
+            <warranty>fp_war</warranty>	
+        </warranties>
+	</phone>
+	
+	<phone id="Feature Phone 6">
+        <name>Feature Phone 6</name>
+        <price>50.99</price>
+        <image>fp6.jpg</image>
+        <label>Feature Phone</label>
+        <condition>New</condition>
+        <discount>15.0</discount>
+        <accessories>
+            <accessory>nintendo_wc</accessory>
+            <accessory>nintendo_wc</accessory>	
+        </accessories>
+        <warranties>
+            <warranty>fp_war</warranty>	
+        </warranties>
+	</phone>
+	
+	
+	<phone id="Feature Phone 7">
+        <name>Feature Phone 7</name>
+        <price>50.99</price>
+        <image>fp7.jpg</image>
+        <label>Feature Phone</label>
+        <condition>New</condition>
+        <discount>15.0</discount>
+        <accessories>
+            <accessory>nintendo_wc</accessory>
+            <accessory>nintendo_wc</accessory>
+        </accessories>
+        <warranties>
+            <warranty>fp_war</warranty>	
+        </warranties>
+	</phone>
+	
+	<phone id="Feature Phone 8">
+        <name>Feature Phone 8</name>
+        <price>50.99</price>
+        <image>fp8.jpg</image>
+        <label>Feature Phone</label>
+        <condition>New</condition>
+        <discount>15.0</discount>
+        <accessories>
+            <accessory>nintendo_wc</accessory>
+            <accessory>nintendo_wc</accessory>	
+        </accessories>
+        <warranties>
+            <warranty>fp_war</warranty>	
+        </warranties>
+	</phone>
+	
+	<phone id="Feature Phone 9">
+        <name>Feature Phone 9</name>
+        <price>50.99</price>
+        <image>fp9.jpg</image>
+        <label>Feature Phone</label>
+        <condition>New</condition>
+        <discount>15.0</discount>
+        <accessories>
+            <accessory>nintendo_wc</accessory>
+            <accessory>nintendo_wc</accessory>
+        </accessories>
+        <warranties>
+            <warranty>fp_war</warranty>	
+        </warranties>
+	</phone>
+	
+	<phone id="Feature Phone 10">
+        <name>Feature Phone 10</name>
+        <price>50.99</price>
+        <image>fp0.jpg</image>
+        <label>Feature Phone</label>
+        <condition>New</condition>
+        <discount>15.0</discount>
+        <accessories>
+            <accessory>nintendo_wc</accessory>
+            <accessory>nintendo_wc</accessory>
+        </accessories>
+        <warranties>
+            <warranty>fp_war</warranty>	
+        </warranties>
+	</phone>
+	
+	<phone id="Smart Phone 1">
+        <name>Smart Phone 1</name>
+        <price>699.99</price>
+        <image>s1.jpg</image>
+        <label>Smart Phone</label>
+        <condition>New</condition>
+        <discount>15.0</discount>
+        <accessories>
+            <accessory>nintendo_wc</accessory>
+            <accessory>nintendo_wc</accessory>	
+        </accessories>
+        <warranties>
+            <warranty>sp_war</warranty>	
+        </warranties>
+	</phone>
+	
+		<phone id="Smart Phone 2">
+        <name>Smart Phone 2</name>
+        <price>699.99</price>
+        <image>s2.jpg</image>
+        <label>Smart Phone</label>
+        <condition>New</condition>
+        <discount>15.0</discount>
+        <accessories>
+            <accessory>nintendo_wc</accessory>
+            <accessory>nintendo_wc</accessory>
+        </accessories>
+        <warranties>
+            <warranty>sp_war</warranty>	
+        </warranties>
+	</phone>
+	
+	
+		<phone id="Smart Phone 3">
+        <name>Smart Phone 3</name>
+        <price>699.99</price>
+        <image>s3.jpeg</image>
+        <label>Smart Phone</label>
+        <condition>New</condition>
+        <discount>15.0</discount>
+        <accessories>
+            <accessory>nintendo_wc</accessory>
+            <accessory>nintendo_wc</accessory>	
+        </accessories>
+        <warranties>
+            <warranty>sp_war</warranty>	
+        </warranties>
+	</phone>
+	
+	
+		<phone id="Smart Phone 4">
+        <name>Smart Phone 4</name>
+        <price>699.99</price>
+        <image>s4.jpg</image>
+        <label>Smart Phone</label>
+        <condition>New</condition>
+        <discount>15.0</discount>
+        <accessories>
+            <accessory>nintendo_wc</accessory>
+            <accessory>nintendo_wc</accessory>
+        </accessories>
+        <warranties>
+            <warranty>sp_war</warranty>	
+        </warranties>
+	</phone>
+	
+	
+		<phone id="Smart Phone 5">
+        <name>Smart Phone 5</name>
+        <price>699.99</price>
+        <image>s5.jpg</image>
+        <label>Smart Phone</label>
+        <condition>New</condition>
+        <discount>15.0</discount>
+        <accessories>
+            <accessory>nintendo_wc</accessory>
+            <accessory>nintendo_wc</accessory>
+        </accessories>
+        <warranties>
+            <warranty>sp_war</warranty>	
+        </warranties>
+	</phone>
+	
+	
+		<phone id="Smart Phone 6">
+        <name>Smart Phone 6</name>
+        <price>699.99</price>
+        <image>s6.jpg</image>
+        <label>Smart Phone</label>
+        <condition>New</condition>
+        <discount>15.0</discount>
+        <accessories>
+            <accessory>nintendo_wc</accessory>
+            <accessory>nintendo_wc</accessory>	
+        </accessories>
+        <warranties>
+            <warranty>sp_war</warranty>	
+        </warranties>
+	</phone>
+	
+	
+		<phone id="Smart Phone 7">
+        <name>Smart Phone 7</name>
+        <price>699.99</price>
+        <image>s7.jpg</image>
+        <label>Smart Phone</label>
+        <condition>New</condition>
+        <discount>15.0</discount>
+        <accessories>
+            <accessory>nintendo_wc</accessory>
+            <accessory>nintendo_wc</accessory>	
+        </accessories>
+        <warranties>
+            <warranty>sp_war</warranty>	
+        </warranties>
+	</phone>
+	
+	
+		<phone id="Smart Phone 8">
+        <name>Smart Phone 8</name>
+        <price>699.99</price>
+        <image>s8.jpg</image>
+        <label>Smart Phone</label>
+        <condition>New</condition>
+        <discount>15.0</discount>
+        <accessories>
+            <accessory>nintendo_wc</accessory>
+            <accessory>nintendo_wc</accessory>
+        </accessories>
+        <warranties>
+            <warranty>sp_war</warranty>	
+        </warranties>
+	</phone>
+	
+	
+		<phone id="Smart Phone 9">
+        <name>Smart Phone 9</name>
+        <price>699.99</price>
+        <image>s9.jpg</image>
+        <label>Smart Phone</label>
+        <condition>New</condition>
+        <discount>15.0</discount>
+        <accessories>
+            <accessory>nintendo_wc</accessory>
+            <accessory>nintendo_wc</accessory>
+        </accessories>
+        <warranties>
+            <warranty>sp_war</warranty>	
+        </warranties>
+	</phone>
+	
+	
+		<phone id="Smart Phone 10">
+        <name>Smart Phone 10</name>
+        <price>699.99</price>
+        <image>s10.jpeg</image>
+        <label>Smart Phone</label>
+        <condition>New</condition>
+        <discount>15.0</discount>
+        <accessories>
+            <accessory>nintendo_wc</accessory>
+            <accessory>nintendo_wc</accessory>	
+        </accessories>
+        <warranties>
+            <warranty>sp_war</warranty>	
+        </warranties>
+	</phone>
+	
+	
+	
+</PhoneCatalog>
+
+
+<LaptopCatalog>
+    <laptop id="Apple Ipad Pro">
+        <name>Apple Ipad Pro</name>
+        <price>189.99</price>
+        <image>apple1.jpg</image>
+        <label>Apple</label>
+        <condition>New</condition>
+        <discount>40.0</discount>
+    </laptop>
+    <laptop id="Apple Ipad 3">
+        <name>Apple Ipad 3</name>
+        <price>189.99</price>
+        <image>apple2.jpg</image>
+        <label>Apple</label>
+        <condition>Used</condition>
+        <discount>20.0</discount>
+    </laptop>
+    <laptop id="Surface">
+        <name>Surface</name>
+        <price>299.99</price>
+        <image>m1.jpg</image>
+        <label>Microsoft</label>
+        <condition>New</condition>
+        <discount>15.0</discount>
+    </laptop>
+    <laptop id="Surface Pro 4">
+        <name>Surface Pro 4</name>
+        <price>299.99</price>
+        <image>m2.jpg</image>
+        <label>Microsoft</label>
+        <condition>New</condition>
+        <discount>15.0</discount>
+    </laptop>
+    <laptop id="Samsung Tab 2">
+        <name>Samsung Tab 2</name>
+        <price>150.99</price>
+        <image>s1.jpg</image>
+        <label>Samsung</label>
+        <condition>New</condition>
+        <discount>15.0</discount>
+    </laptop>
+</LaptopCatalog>
+
+
+<AccessoryCatalog>
+
+    <accessory id="watch_a1">
+        <name>watch_a1</name>
+        <price>89.99</price>
+        <image>a1.jpg</image>
+        <label>Fitness_Watches</label>
+        <condition>New</condition>
+        <discount>40.0</discount>
+     </accessory>
+
+    <accessory id="watch_a2">
+        <name>watch_a2</name>
+        <price>89.99</price>
+        <image>a2.jpg</image>
+        <label>Fitness_Watches</label>
+        <condition>New</condition>
+        <discount>40.0</discount>
+     </accessory>
+	 
+	 <accessory id="watch_a3">
+        <name>watch_a3</name>
+        <price>89.99</price>
+        <image>a3.jpg</image>
+        <label>Fitness_Watches</label>
+        <condition>New</condition>
+        <discount>40.0</discount>
+     </accessory>
+
+    <accessory id="watch_a4">
+        <name>watch_a4</name>
+        <price>89.99</price>
+        <image>a4.jpg</image>
+        <label>Fitness_Watches</label>
+        <condition>New</condition>
+        <discount>40.0</discount>
+     </accessory>
+	 
+	 <accessory id="watch_a5">
+        <name>watch_a5</name>
+        <price>89.99</price>
+        <image>a5.jpg</image>
+        <label>Fitness_Watches</label>
+        <condition>New</condition>
+        <discount>40.0</discount>
+     </accessory>
+
+    <accessory id="watch_a6">
+        <name>watch_a6</name>
+        <price>89.99</price>
+        <image>a6.jpg</image>
+        <label>Fitness_Watches</label>
+        <condition>New</condition>
+        <discount>40.0</discount>
+     </accessory>
+	 
+	 <accessory id="watch_a7">
+        <name>watch_a7</name>
+        <price>89.99</price>
+        <image>a7.jpg</image>
+        <label>Fitness_Watches</label>
+        <condition>New</condition>
+        <discount>40.0</discount>
+     </accessory>
+	 
+
+    <accessory id="xbox360_wc">
+        <name>xbox360_wc</name>
+        <price>89.99</price>
+        <image>XBOX360-SpeedWheel.jpg</image>
+        <label>Fitness_Watches</label>
+        <condition>New</condition>
+        <discount>40.0</discount>
+     </accessory>
+
+    <accessory id="xbox360_sh">
+        <name>xbox360_sh</name>
+        <price>89.99</price>
+        <image>xbox360_wa.png</image>
+        <label>Fitness_Watches</label>
+        <condition>New</condition>
+        <discount>40.0</discount>
+     </accessory>
+	 
+	 <accessory id="xbox360_vb">
+        <name>xbox360_vb</name>
+        <price>89.99</price>
+        <image>remote.jpg</image>
+        <label>Fitness_Watches</label>
+        <condition>New</condition>
+        <discount>40.0</discount>
+     </accessory>
+	 	 <accessory id="xbox360_rs">
+        <name>xbox360_rs</name>
+        <price>89.99</price>
+        <image>messengerkit.jpg</image>
+        <label>Fitness_Watches</label>
+        <condition>New</condition>
+        <discount>40.0</discount>
+     </accessory>
+	 
+	 	 <accessory id="xbox360_mp">
+        <name>xbox360_mp</name>
+        <price>89.99</price>
+        <image>steering.jpg</image>
+        <label>Fitness_Watches</label>
+        <condition>New</condition>
+        <discount>40.0</discount>
+     </accessory>
+	 
+	 	 <accessory id="xbox360_kg">
+        <name>xbox360_kg</name>
+        <price>89.99</price>
+        <image>charger.jpg</image>
+        <label>Fitness_Watches</label>
+        <condition>New</condition>
+        <discount>40.0</discount>
+     </accessory>
+
+    <accessory id="ps4_wc">
+        <name>ps4_wc</name>
+        <price>89.99</price>
+        <image>XBOX controller.jpg</image>
+        <label>Smart_Watches</label>
+        <condition>New</condition>
+        <discount>40.0</discount>
+     </accessory>
+
+    <accessory id="ps3_wc">
+        <name>ps3_wc</name>
+        <price>89.99</price>
+        <image>Turtle Beach Headset.jpg</image>
+        <label>Smart_Watches</label>
+        <condition>New</condition>
+        <discount>40.0</discount>
+     </accessory>
+
+    <accessory id="nintendo_wc">
+        <name>nintendo_wc</name>
+        <price>89.99</price>
+        <image>Wii1.jpg</image>
+        <label>Headphones</label>
+        <condition>New</condition>
+        <discount>40.0</discount>
+     </accessory>
+
+    <accessory id="nintendo_sh">
+        <name>nintendo_sh</name>
+        <price>89.99</price>
+        <image>Wii2.jpg</image>
+        <label>Headphones</label>
+        <condition>New</condition>
+        <discount>40.0</discount>
+     </accessory>
+	 
+  
+
+</AccessoryCatalog>
+
+<WarrantyCatalog>
+
+    <warranty id="watch_war">
+        <name>Fitness watch warranty</name>
+        <price>89.99</price>
+        <image>XBOX controller.jpg</image>
+        <label>Fitness_Watches</label>
+        <condition>New</condition>
+        <discount>40.0</discount>
+     </warranty>
+     
+     <warranty id="Smwatch_war">
+        <name>Smart watch warranty</name>
+        <price>89.99</price>
+        <image>XBOX controller.jpg</image>
+        <label>Smart_Watches</label>
+        <condition>New</condition>
+        <discount>40.0</discount>
+     </warranty>
+     
+      <warranty id="fp_war">
+        <name>Feature Phone warranty</name>
+        <price>9.99</price>
+        <image>XBOX controller.jpg</image>
+        <label>Feature Phone</label>
+        <condition>New</condition>
+        <discount>40.0</discount>
+     </warranty>
+     
+      <warranty id="sp_war">
+        <name>Controller</name>
+        <price>119.99</price>
+        <image>XBOX controller.jpg</image>
+        <label>Smart Phone</label>
+        <condition>New</condition>
+        <discount>40.0</discount>
+     </warranty>
+
+</WarrantyCatalog>
+
+
+</ProductCatalog>
