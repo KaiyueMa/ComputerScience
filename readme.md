@@ -1,7 +1,13 @@
 # Codes during my Master's degree
 
-Hi, this is Kaiyue. 
-
-Here is code I wrote, including course assignment and course projects.
+Here is code I wrote from Dec.2017 to Dec.2018, including course assignment and course projects.
 
 Most uses Java, and the rests uses Python and R.
+
+|Course/Project Name|Description|
+|:---:|:---|
+|[CS401](./Java/CS401_couponIndex)|Course in data structures|
+|[CS422](./R)|Course in data mining|
+|[CS584](./Python/CS584_machineLearning)|Course in machine learning|
+|[CSP554](./Python/CSP554_movieRecommendat)|Course in big data|
+|[CSP584](./Java/CSP584_enterpriseWebAPP)|Course in enterprise web applications
