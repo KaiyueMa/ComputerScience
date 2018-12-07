@@ -1,0 +1,79 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+```{r}
+library(ggplot2)
+library(corrplot)
+#2.2 (a)
+setwd("/Users/michael/Codes/R/1")
+nba <- read.csv("nba.csv",stringsAsFactors = F, sep = ',')
+corrplot(round(cor(nba[,-1*c(1:7,16:17,20,22)]),2), method = "number")
+
+```
+
+```{r}
+#2.2 (a) 
+para1 <- lm(formula = PTS ~ FG, data = nba)
+summary(para1)
+```
+
+```{r}
+#2.2 (b)
+plot(nba$FG, nba$PTS, xlab = "FG", ylab = "PTS")
+abline(para1)
+```
+
+```{r}
+#2.2 (c)
+c <-round(cor(nba[,-1*c(1:7,10:12,14:17,19:22)]),2)
+c1 <-round(cor(nba[,c('FG','MIN','FT','A','PTS')]),2)
+
+corrplot(c1, method = "number")
+```
+
+```{r}
+# 2.2 (d)
+set.seed(1122)
+index <- sample(1:nrow(nba),250)
+train <- nba[index,]
+test <- nba[-index,]
+multi <- lm(formula = PTS ~ MIN + FG + A + FT, data = train)
+summary(multi)
+
+cat("In this multi-parameters model, found that FG adn FT has significant influence on the PTS.\n")
+cat("Regressor chosen are good!")
+
+```
+
+```{r}
+# 2.2 (e)
+plot(multi,1)
+
+cat("The variance is low.")
+```
+
+```{r}
+# 2.2 (f)
+hist(multi$residuals, xlab = "Model Residuals", 
+     main="NBA Residual Histogram MultiVariate")
+
+cat ("Yes! It's approximimately like the Gaussian distribution.")
+```
+
+```{r}
+# 2.2 (g)
+multi<- predict(multi, test[, c('FG','MIN','FT','A')])
+```
+
+```{r}
+# 2.2 (h)
+result <- data.frame(test$PTS,multi)
+result <- data.frame(result,(result$test.PTS-result$multi))
+colnames(result) <- c("Actual", "Predicted", "Error")
+RSS <- sum((result$Error)^2)
+TSS <- sum((result$Actual-mean(result$Actual))^2)
+RSE <- sqrt(RSS/(length(result$Actual)-4-1))
+FStat <- ((TSS-RSS)/4)/(RSS/(length(result$Actual)-4-1))
+cat(RSS,TSS,RSE,FStat)
+```

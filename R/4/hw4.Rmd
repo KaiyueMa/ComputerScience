@@ -1,0 +1,449 @@
+---
+title: "CS422 Section 01"
+author: "Kaiyue Ma"
+output: html_document
+---
+
+```{r}
+rm(list=ls())
+```
+
+```{r}
+library(textreuse)
+library(dplyr)
+library(proxy)
+library(stringr)
+library(data.table)
+library(tidyr)
+library(plyr)
+library(reshape)
+library(lsa)
+
+setwd("/Users/michael/Codes/R/4")
+```
+
+# 2.1
+```{r}
+movies <- read.csv("movies.csv")
+ratings <- read.csv("ratings.csv")
+```
+
+```{r}
+length(unique(movies$movieId))
+length(unique(ratings$movieId))
+
+dim(movies[which(!movies$movieId %in% ratings$movieId),])
+dim(ratings[which(!ratings$movieId %in% movies$movieId),])
+
+```
+
+```{r}
+for(i in unique(ratings$userId))
+  {
+    filename <- paste("user",i,".txt",sep = " ")
+    movieIDs <- ratings[which(ratings$userId == i),"movieId"]
+    movnames <- movies[match(movieIDs,movies$movieId),"title"]
+    writeLines(as.character(movnames),filename)
+    
+  }
+
+files <- list.files("/Users/michael/Codes/R/4", full.names = T)
+
+corpus <- TextReuseCorpus(files, tokenizer = tokenize_ngrams, n = 5, keep_tokens = T)
+```
+
+## 2.1 (a)
+```{r}
+corpus %>%
+  tokens %>%
+  unlist %>%
+  unique %>%
+  length
+
+```
+```{r}
+corpus %>%
+  length
+```
+#### There are 333583 rows and 671 columns in the characteristic matrix.
+
+## 2.1 (b)
+```{r}
+d <- corpus[["user 20 "]]
+```
+
+#2.1 (b) (i)
+```{r}
+str_count(d$content,"\n")
+```
+#### User 20 rated 98 (97+1) movies
+#2.1 (b) (ii)
+#### The first 5 shingles are:
+```{r}
+d$tokens[1:5]
+```
+
+## 2.1 (c)
+```{r}
+pcomp <- pairwise_compare(corpus, jaccard_similarity)
+pcan <- pairwise_candidates(pcomp)
+```
+
+### 2.1 (c) (i)
+```{r}
+summary(pcan$score >= 0.6)
+```
+#### There are 0 user.
+
+### 2.1 (c) (ii)
+```{r}
+summary(pcan$score >= 0.5)
+```
+#### There are 0 user.
+
+### 2.1 (c) (iii)
+```{r}
+summary(pcan$score >= 0.4)
+```
+#### There are 4 users.
+
+### 2.1 (c) (iv)
+#### Those 4 users are:
+```{r}
+pcan[which(pcan$score>=0.40),]
+```
+#### user 151	user 369
+#### user 191	user 317
+#### user 191	user 513
+#### user 225	user 375
+## 2.1 (d)
+### 2.1 (d) (i)
+```{r}
+lsh_probability(h = 100, b = 20, s = 0.6)
+lsh_probability(h = 115, b = 23, s = 0.6)
+lsh_probability(h = 120, b = 30, s = 0.6)
+```
+#### Taking 120 as number of minhash signatures and 30 as number of bands.
+
+### 2.1 (d) (ii)
+```{r}
+minhash <-minhash_generator(n = 120, seed = 100)
+new_corpus <- TextReuseCorpus(files,tokenizer = tokenize_ngrams, n = 5,keep_tokens = TRUE,minhash_func = minhash)
+```
+#### The first five minhashes are:
+```{r}
+d1 <- new_corpus[["user 20 "]]
+cat("- \n")
+d1$minhashes[1:5]
+```
+
+## 2.1 (e)
+```{r}
+buckets1 <- lsh(new_corpus,bands= 30)
+candidates <- lsh_candidates(buckets1)
+result <- lsh_compare(candidates, new_corpus, jaccard_similarity)
+```
+
+### 2.1 (e) (i)
+```{r}
+result[which(result$score <= 0.60 & result$score>=0.50),]
+```
+#### No. There should not be candidates pair(s) whose similarity between 0.60 and 0.50, because in brute force comparison is accuracy. Tht brute froce comparison compares with every possible combination does not yeild any similarity then this method should not yield any results of similarity.
+
+### 2.1 (e) (ii)
+#### Users whose similarity score at least 0.40 are:
+```{r}
+result[which(result$score >= 0.40),]
+```
+
+### 2.1 (e) (iii)
+#### No, LSH lost 2 pairs' similarity which are over 0.4.
+
+### 2.1 (e) (iv)
+```{r}
+((1 - 59 / 228826) * 100) %>%
+  round(3) %>%
+  paste("%") %>%
+  print
+```
+#### There are 228826 comparisons and 59 comparisons. Generated 99.974% of work was saved.
+
+# 2.2
+```{r}
+print("The user number is:")
+20407079%%671
+#recommendation for 627
+```
+
+```{r}
+#movieID--user627
+user627_movieID <-ratings[ratings$userId==627,"movieId"]
+
+# movie ID and genre of user627
+user627_movieID_genre <- movies[match(user627_movieID,movies$movieId),c("movieId","genres")]
+user627_movieID_genre$genres <- trimws(user627_movieID_genre$genres,which ="both")
+
+temp <-strsplit(as.character(user627_movieID_genre$genres), split = "|", fixed = T)
+temp <- ldply(temp,rbind)
+
+
+#temp user
+user627_movieID_genre <- cbind(user627_movieID_genre,temp)
+user627_movieID_genre <- user627_movieID_genre[,-2]
+
+x <- melt(user627_movieID_genre,id.vars = c("movieId"))
+x <- x[order(x$movieId),]  
+
+x <- x[-which(is.na(x$value)),]
+x <- x[,-2]
+
+###############################################################
+#creating user profile
+user_profile <- data.frame(recast(x, movieId~value,id.var = c("movieId","value")))
+user_profile$`(no genres listed)` <- NA
+
+
+user_profile[,2:ncol(user_profile)] <- sapply(user_profile[,2:ncol(user_profile)], as.character)
+user_profile[is.na(user_profile)] <- 0
+
+user_profile <- data.frame(lapply(user_profile, function(x) as.numeric(x!=0)))
+
+user_profile$movieId <- user627_movieID_genre$movieId
+
+user_profile <- user_profile[,c(1,2,3,4,5,6,7,8,9,14,15,10,19,16,11,17,12,13,18,20,21)]
+
+rownames(user_profile) <- user_profile$movieId
+```
+
+```{r}
+#creating the movie profile dataframe
+
+set.seed(3)
+rand_mov <- sample(1:nrow(movies),10)
+movies_temp <- movies[rand_mov, c("movieId","genres")]
+
+
+temp1 <- strsplit(as.character(movies_temp$genres), split = "|", fixed = T)
+temp1 <- ldply(temp1,rbind)
+
+movies_temp <- cbind(movies_temp,temp1)
+movies_temp <- movies_temp[,-2]
+
+
+y <- melt(movies_temp,id.vars = c("movieId"))
+y <- y[order(y$movieId),]  
+y <- y[-which(is.na(y$value)),]
+y <- y[,-2]
+
+movie_profile <- data.frame(recast(y, movieId~value,id.var = c("movieId","value")))
+movie_profile[,2:ncol(movie_profile)] <- sapply(movie_profile[,2:ncol(movie_profile)], as.character)
+
+movie_profile$Children <- NA
+movie_profile$Crime <- NA
+movie_profile$Documentary <- NA
+movie_profile$Fantasy <- NA
+movie_profile$`Film-Noir` <- NA
+movie_profile$IMAX <- NA
+movie_profile$Musical <- NA
+movie_profile$`(no genres listed)` <- NA
+
+movie_profile[is.na(movie_profile)] <- 0
+
+movie_profile <- data.frame(lapply(movie_profile, function(x) as.numeric(x!=0)))
+
+movie_profile$movieId <- movies_temp$movieId
+
+movie_profile <- movie_profile[,c(1,2,8,3,14,4,15,16,5,17,21,6,18,19,12,7,13,9,10,11,20)]
+rownames(movie_profile) <- movie_profile$movieId
+
+user_prof_mat <- as.matrix(user_profile[,2:ncol(user_profile)])
+
+movie_prof_mat <- as.matrix(movie_profile[,2:ncol(movie_profile)])
+
+```
+
+```{r}
+# #cosine
+# mycosine <- function(x,y){
+#      c <- sum(x*y) / (sqrt(sum(x*x)) * sqrt(sum(y*y)))
+#      return(c)
+#  }
+# 
+# trial <- matrix(NA,ncol = nrow(user_prof_mat),nrow = nrow(movie_prof_mat))
+# 
+# #similarity
+# for (i in 1:nrow(user_prof_mat)) {
+# 
+#   for (j in 1:nrow(movie_prof_mat)) {
+# 
+#     trial[j,i] <- mycosine(user_prof_mat[i,],movie_prof_mat[j,])
+# 
+#   }
+# 
+# }
+
+user_profile.avg <- colSums(user_profile[,2:ncol(user_profile)])/nrow(user_prof_mat)
+
+cos.simi <- cosine(user_profile.avg, movie_profile[,2:ncol(movie_profile)] %>% as.matrix %>% t) %>%
+  sort(decreasing = TRUE) %>%
+  round(3)
+recommend <- names(cos.simi)[1:10]
+
+```
+
+```{r}
+recc_title <-as.character(movies[match(recommend,movies$movieId),"title"])
+
+# recc_simi <- c(max(trial[1,]),max(trial[2,]),max(trial[3,]),max(trial[4,]),max(trial[5,]),max(trial[6,]),max(trial[7,]),max(trial[8,]),max(trial[9,]),max(trial[10,]))
+
+```
+
+```{r}
+print("The Movies recommended for User627 are: ")
+for (i in 1:10) {
+  
+  print(paste0("The movie ", recc_title[i]," has similarity score of ", cos.simi[i]))
+  
+}
+
+
+```
+
+# 2.3
+## 2.3 (a)
+```{r}
+ratings <- data.table(ratings)
+id191 <- 191
+movie3 <- ratings[userId == id191, movieId]
+test3 <- c(150, 296, 380, 590)
+trainer3 <- setdiff(movie3, test3)
+jac.simi <- c(0.4358974, 0.4033613, 0.3255814, 0.3049645, 0.2753623,0.2727273, 0.2527473, 0.2420382, 0.2262774, 0.2216216, 0.2105263, 0.2009804)
+names(jac.simi) <- c(513, 317, 415, 375, 64, 556, 82, 225, 657, 266, 568, 50)
+```
+
+```{r}
+set.seed(233)
+user3 <- sample(jac.simi, 5)
+```
+
+```{r}
+user191_rating <- ratings[ratings$userId == 191, c("movieId","rating")]
+
+user64_rating <- ratings[ratings$userId == 64, c("movieId","rating")]
+user266_rating <- ratings[ratings$userId == 266, c("movieId","rating")]
+user657_rating <-ratings[ratings$userId == 657, c("movieId","rating")]
+user225_rating <- ratings[ratings$userId ==225, c("movieId","rating")]
+user375_rating <-  ratings[ratings$userId == 375, c("movieId","rating")]
+
+intersect_64 <- intersect(user64_rating$movieId, user191_rating$movieId)
+intersect_266 <- intersect(user266_rating$movieId, user191_rating$movieId)
+intersect_657 <- intersect(user657_rating$movieId, user191_rating$movieId)
+intersect_225 <- intersect(user225_rating$movieId, user191_rating$movieId)
+intresect_375 <- intersect(user375_rating$movieId, user191_rating$movieId)
+
+temp2 <- rbind(user191_rating, user64_rating[match(intersect_64, user64_rating$movieId),], user266_rating[match(intersect_266, user266_rating$movieId),], user657_rating[match(intersect_657, user657_rating$movieId), ], user225_rating[match(intersect_225, user225_rating$movieId), ], user375_rating[match(intresect_375, user375_rating$movieId), ])
+
+nrow(user191_rating)
+nrow(user64_rating[match(intersect_64, user64_rating$movieId), ])
+nrow(user266_rating[match(intersect_266, user266_rating$movieId), ])
+nrow(user657_rating[match(intersect_657, user657_rating$movieId), ])
+nrow(user225_rating[match(intersect_225, user225_rating$movieId), ])
+nrow(user375_rating[match(intresect_375, user375_rating$movieId), ])
+
+temp2[c(1:29),"UserID"] <- 191
+temp2[c(30:46),"UserID"] <- 64
+temp2[c(47:66),"UserID"] <- 266
+temp2[c(67:81),"UserID"] <- 657
+temp2[c(82:100), "UserID"] <- 225
+temp2[c(101:119),"UserID"] <- 375
+
+
+
+z <- melt(temp2, id.vars = c("movieId","UserID"), na.rm = F)
+
+U <-data.frame(cast(z, UserID~variable+movieId))
+rownames(U) <- U$UserID
+colnames(U) <- gsub("rating_", "", colnames(U))
+U <- U[,-1]
+
+true.rating <- U[which(rownames(U) == id191), which(colnames(U) %in% test3)]
+
+U[which(rownames(U) == id191), which(colnames(U) %in% test3)] <- NA
+U[is.na(U)] <- 0
+
+```
+
+```{r}
+neighbor3 <- sort(user3, decreasing = TRUE)[1:3]
+neighbor3 <- neighbor3[order(as.numeric(names(neighbor3)))]
+R <- U[rownames(U) %in% names(neighbor3), colnames(U) %in% test3]
+R <- R[order(as.numeric(rownames(R))), ]
+pred <- as.vector(t(neighbor3) %*% as.matrix(R) / sum(neighbor3))
+RMSE <- sqrt(sum((pred - true.rating)^2) / length(pred))
+1:length(test3) %>%
+  sapply(function(x) {
+    paste0(test3[x], ": ", round(pred[x], 3))
+  }) %>%
+  paste0(collapse = "\t\n") %>%
+  paste0("User ID ", id191, ", ", length(user3), " random user IDs: ", paste0(names(user3), collapse = ", "), ".\t\nUsing user-user similarity, User ID ", id191, " will rate the movies as follows: \t\n", .,
+         "\t\nRMSE: ", RMSE) %>%
+  cat
+```
+
+## 2.3 (b)
+```{r}
+
+findMovie <- function(data) {
+  d <- data.frame(data$rating) %>% t
+  colnames(d) <- data$movieId
+  rownames(d) <- data$userId[1]
+  return(d)
+}
+
+Ut <- c(names(user3), id191) %>%
+  sapply(function(x) {
+    ratings[userId == x, findMovie(.SD), .SDcols = c("rating", "movieId", "userId")]
+  }) %>%
+  melt %>%
+  dcast(X1 ~ X2) %>%
+  t
+colnames(Ut) <- Ut[1, ]
+Ut <- Ut[-1, ]
+Ut <- Ut[which(rownames(Ut) %in% movie3), ]
+
+cos.simi3 <- apply(Ut, 2, function(x) {
+  n <- sum(!is.na(x))
+  x <- ifelse(is.na(x), 0, x)
+  x - sum(x) / n
+}) %>%
+  t %>%
+  cosine
+
+
+pred3 <- test3 %>%
+  sapply(function(x) {
+    neighbor <- cos.simi3[row.names(cos.simi3) == x, colnames(cos.simi3) %in% trainer3] %>%
+      sort(decreasing = TRUE) %>%
+      names()
+    neighbor <- neighbor[1:3]
+    ref <- Ut[rownames(Ut) %in% neighbor, colnames(Ut) == id191]
+    ref <- ref[order(as.numeric(names(ref)))]
+    cos.neighbor <- cos.simi3[row.names(cos.simi3) == x, colnames(cos.simi3) %in% neighbor]
+    cos.neighbor <- cos.neighbor[order(as.numeric(names(cos.neighbor)))]
+    pred <- sum(ref * cos.neighbor) / sum(cos.neighbor)
+    return(pred)
+  })
+
+RMSE3 <- sqrt(sum((pred3 - true.rating)^2) / length(pred))
+1:length(test3) %>%
+  sapply(function(x) {
+    paste0(test3[x], ": ", round(pred3[x], 3))
+    }) %>%
+  paste0(collapse = "\t\n") %>%
+  paste0("User ID ", id191, ", ", length(user3), " random user IDs: ", paste0(names(user3), collapse = ", "), ".\t\nUsing user-user similarity, User ID ", id191, " will rate the movies as follows: \t\n", .,
+"\t\nRMSE: ", RMSE3) %>%
+  cat
+
+```
+
+

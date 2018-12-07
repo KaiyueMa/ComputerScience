@@ -1,0 +1,24 @@
+---
+title: "CS422 Section 01"
+output: html_notebook
+author: Kaiyue Ma
+---
+
+
+```{r}
+plot((cars),main = "The Cars Dataset")
+summary(cars)
+
+findmax_speed <- function() {
+  cat(paste("maximum speed: "))
+  max(cars$speed)
+}
+findmin_distance <- function() {
+  cat(paste("minimum speed: "))
+  min(cars$dist)
+}
+```
+```{r}
+findmax_speed()
+findmin_distance()
+```

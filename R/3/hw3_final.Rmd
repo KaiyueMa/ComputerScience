@@ -1,0 +1,303 @@
+---
+title: "CS422 Section 01"
+author: "Kaiyue Ma"
+output: html_document
+---
+```{r}
+library(cluster)
+library(factoextra)
+library(corrplot)
+library(ggplot2)
+library(fpc)
+library(stringr)
+library(tidyr)
+setwd("/Users/michael/Codes/R/test")
+```
+
+# 2.1
+```{r}
+file19 <- read.table("https://people.sc.fsu.edu/~jburkardt/datasets/hartigan/file19.txt", comment.char = "#", skip = 20, strip.white = T, header = T, fill = T, stringsAsFactors = T)
+
+write.csv(file19, file = "file19.csv", row.names = F)
+```
+
+## (a)
+### (a)(i)
+```{r}
+corrplot(round(cor(file19[,2:ncol(file19)]),2),method = "number")
+cor.test(file19[,2],file19[,3], method = "pearson")
+cor.test(file19[,4],file19[,5], method = "pearson")
+cor.test(file19[,6],file19[,7], method = "pearson")
+cor.test(file19[,8],file19[,9], method = "pearson")
+```
+#### The attribute "c","p","m" could be omitted from the dataset, because their correlation value to "C","P" and "M" are closed to 1 which implying that these attributes are strongly correlated.
+
+```{r}
+nfile19 <- file19[,c(1,2,3,4,6,8)]
+```
+
+### (a)(ii)
+```{r}
+nfile19scaled <- scale(nfile19[,2:ncol(nfile19)])
+```
+
+#### These data need to be standardized, because different attribute has differnt range. And it's more effect clustering when the data has already been standardized.
+
+### (a)(iii)
+```{r}
+write.csv(nfile19, file = "nfile19.csv", row.names = F)
+```
+#### Forming new csv named nfile19.csv.
+
+## (b)
+### (b)(i)
+```{r}
+fviz_nbclust(nfile19[2:6], kmeans, method="wss")
+fviz_nbclust(nfile19[2:6], kmeans, method="silhouette")
+```
+
+#### I will choice the number of clusters needed are 7, because the slope is almost 0 after 7, in the plot the optimal number of clusters is 10 but the more cluster we choive the more complexity the model will be.
+
+### (b)(ii)
+```{r}
+nclass <- kmeans(nfile19scaled, centers = 7)
+fviz_cluster(nclass, data=nfile19scaled, main = "cluster (scaled)")
+```
+
+### (b)(iii)
+```{r}
+print(nclass)
+```
+
+#### The observation in each cluster is : 14, 21, 6, 2, 7, 5, 11.
+
+### (b)(iv)
+```{r}
+print(nclass$tot.withinss)
+```
+#### The total SSE is:46.9231.
+
+### (b)(v)
+```{r}
+print(nclass$withinss)
+```
+#### SSE in each cluster are:4.726482e+00 8.744019e+00 1.652973e+01 1.428316e+00 7.333941e-31 5.134126e+00 1.036042e+01.
+
+### (b)(vi)
+```{r}
+nfile19[which(nclass$cluster == 1),]
+nfile19[which(nclass$cluster == 2),]
+nfile19[which(nclass$cluster == 3),]
+nfile19[which(nclass$cluster == 4),]
+nfile19[which(nclass$cluster == 5),]
+nfile19[which(nclass$cluster == 6),]
+nfile19[which(nclass$cluster == 7),]
+```
+#### Cluster1 has all i=1, C=0 and M=3.
+#### Cluster2 has all I=3 and C=1.
+#### Cluster3 has all C=0 and P=0.
+#### Cluster4 seems not that good.
+#### Cluster5 has all attributes are same.
+#### Cluster6 has all C=0 and most I=3, M=3.
+#### Cluster7 has all C=1 and M=3.
+#### Most of the cluster are reasonable, but there still some flaws, such as cluster1 and cluster3 seems should form a large cluster, some animals in cluster2 are supposed to be in cluster4 and in cluster7 bat with some other animal where #58 and #61 should be in cluster 5 which those element are miscluster. The between_SS / total_SS =  85.6 %, which means the model is relatively good and I don't think it should have more cluster because it will increase the complexity of the model(overfitting) which is a tread-off between the accuracy and the complexity of the model.
+
+
+
+
+# 2.2
+```{r}
+lang <- read.table("https://people.sc.fsu.edu/~jburkardt/datasets/hartigan/file46.txt", comment.char = "#", skip = 17, strip.white = T, header = T, fill = T, stringsAsFactors = T)
+language <- lang[,-1]
+rownames(language) <- lang[,1]
+```
+## (a)
+```{r}
+hc.single <- factoextra::eclust(language, "hclust", k = 3, hc_method="single")
+fviz_dend(hc.single, show_labels=T, palette="jco", as.ggplot=T, cex=0.6,  main = "Single")
+
+hc.complete <- factoextra::eclust(language, "hclust", k = 3, hc_method="complete")
+fviz_dend(hc.complete, show_labels=T, palette="jco", as.ggplot=T, cex=0.6,  main = "Complete")
+
+hc.average <- factoextra::eclust(language, "hclust", k = 3, hc_method="average")
+fviz_dend(hc.average, show_labels=T, palette="jco", as.ggplot=T, cex=0.6,  main = "Average")
+```
+
+## (b)
+#### In "single" linkage type the singleton clusters are:Great Britain and Ireland(EN), West Germany and Austria(GE,EN), Luxemberg and Switzerland(GE,FR,EN,IT), France and Belgium(FR,EN,GE), Denmark and Norway(EN,GE,SW,DA,NO).
+#### In "complete" linkage type the singleton clusters are:West Germany and Austria(GE,EN), Luxemberg and Switzerland(GE,FR,EN,IT), Denmark and Norway(EN,GE,SW,DA,NO), Great Britain and Ireland(EN), France and Belgium(FR,EN,GE).
+#### In "average" linkage type the singleton clusters are:Portugal and Spain(FR), West Germany and Austria(GE,EN), Luxemberg and Switzerland(GE,FR,EN,IT), France and Belgium(FR,EN,GE), Denmark and Norway(EN,GE,SW,DA,NO), Great Britain and Ireland(EN).
+
+## (c)
+#### I think the single and average linkage are accurately reflects how Italy should be clustered. This cluster is required us to group based on the percentage of the population who speaks the same set of languages, if use single or average linkage we could find lower difference in percentage of language spoken which means it will fit the result we want. On the contrary,
+
+## (d)
+#### Average linkage method, it generates the most two-singleton cluster(6).
+
+## (e)
+```{r}
+dend_plot <- fviz_dend(hc.average, main = "Average Cluster Dendrogram with height 125", abline(v = 125))
+dend_data <- attr(dend_plot,"dendrogram")
+dend_cuts <- cut(dend_data,h = 125)
+fviz_dend(dend_cuts$upper)
+
+
+fviz_dend(hc.average, main = "Average Cluster Dendrogram with height 125",labels_track_height = 50)
+sort(cutree(hc.average, h = 125,  k= NULL))
+```
+
+#### There would be 7 clusters at a height of 125.
+
+## (f)
+```{r}
+hc.single7 <- factoextra::eclust(language, "hclust", k = 7, hc_method = "single")
+fviz_dend(hc.single7, show_labels=T, palette="jco", as.ggplot=T, cex=0.6,  main = "Single with 7 clusters")
+
+hc.average7 <- factoextra::eclust(language, "hclust", k = 7, hc_method = "average")
+fviz_dend(hc.average7, show_labels=T, palette="jco", as.ggplot=T, cex=0.6,  main = "Average with 7 clusters")
+
+hc.complete7 <- factoextra::eclust(language, "hclust", k = 7, hc_method = "complete")
+fviz_dend(hc.complete7, show_labels=T, palette="jco", as.ggplot=T, cex=0.6,  main = "Complete with 7 clusters")
+```
+
+## (g)
+```{r}
+dunn_hc.single7 <- cluster.stats(dist(language), hc.single7$cluster)["dunn"]
+avgsil_hc.single7 <- cluster.stats(dist(language), hc.single7$cluster)["avg.silwidth"]
+as.numeric(dunn_hc.single7)
+as.numeric(avgsil_hc.single7)
+
+dunn_hc.average7 <- cluster.stats(dist(language), hc.average7$cluster)["dunn"]
+avgsil_hc.average7 <- cluster.stats(dist(language), hc.average7$cluster)["avg.silwidth"]
+as.numeric(dunn_hc.average7)
+as.numeric(avgsil_hc.average7)
+
+dunn_hc.complete7 <- cluster.stats(dist(language), hc.complete7$cluster)["dunn"]
+avgsil_hc.complete7 <- cluster.stats(dist(language), hc.complete7$cluster)["avg.silwidth"]
+as.numeric(dunn_hc.complete7)
+as.numeric(avgsil_hc.complete7)
+```
+#### Single linkage:
+#### Dunn: 0.7813006; Average Silhouette width: 0.1215148
+#### Average linkage:
+#### Dunn: 0.807345 ; Average Silhouette width: 0.1698248
+#### Complete linkage:
+#### Dunn: 0.6768822; Average Silhouette width: 0.1922308
+
+## (h)
+#### Aaverage linkage is the best cluter based on the Dunn index.
+
+## (i)
+#### Complete linkage is the best cluter based on the Average Silhouette Width.
+
+# 2.3
+```{r}
+htru2 <- read.csv("HTRU_2-small.csv", header=T, sep=",")
+htru2scaled <- scale(htru2)
+```
+## (a)
+```{r}
+pca <- prcomp(htru2scaled[,1:8])
+pca
+```
+### (a)(i)
+```{r}
+summary(pca)
+```
+#### The first two components are explained 78.55%
+
+### (a)(ii)
+```{r}
+raw <- pca$x[,1:2]
+plot(raw[,1], raw[,2], col= c("blue", "red"), pch=20, xlab = "PC1", ylab = "PC2")
+
+library(ggfortify)
+htru2pc <- prcomp(htru2[,-9], scale. = T)
+ggplot2::autoplot(htru2pc, data = htru2, colour = "class")
+```
+
+### (a)(iii)
+#### In the 1st plot.The 'mean' and 'std.dev' can be used to predict 78.55% of the variance of the target variable 'class'.
+#### In the 2nd plot.In the middle part of the plot shows up some overlaped. left is Class1 and right on is Class0.
+
+## (b)
+### (b)(i)
+```{r}
+kmean_htru2 <- kmeans(htru2scaled[,1:8], centers = 2)
+fviz_cluster(kmean_htru2, data = htru2scaled[,1:8], main = "htru (scaled)")
+```
+
+### (b)(ii)
+#### Yes they are similar. Because b(i) shows the cluster and a(ii) shows the real data.The difference between them is :the two clusters in (a) ii are based on the value of the Principal Component Score of the HTRU2-small data and the two clusters in (b) i, are based on the closest distance to the cluster centroid. Additionally, In the cluster from (b) i, we observe that there is a clear line of demarcation between the two clusters, however, in (a) ii. there is no clear demarcation of the observations.
+
+### (b)(iii)
+```{r}
+sum(kmean_htru2$cluster == 1)
+sum(kmean_htru2$cluster == 2)
+```
+#### The distribution of cluster1 is 8847 and cluster2 is 1153.
+
+### (b)(iv)
+```{r}
+sum(htru2$class == 0)
+sum(htru2$class == 1)
+```
+#### The distribution of class0 is 9041 and class1 is 959.
+
+### (b)(v)
+#### Cluster1 corresponds to the majority class, Cluster2 corresponds to the minority class.
+
+### (b)(vi)
+```{r}
+a <- which(kmean_htru2$cluster == 1)
+sum(htru2[a,"class"] == 0)
+sum(htru2[a,"class"] == 1)
+```
+#### There are 8624 elements in cluster1 belongs to class0, and 223 belongs to class1.
+
+### (b)(vii)
+#### The larger cluster represents class0. Because the cluster1 is larger cluster and it's correspond to majority class which is class1, and the data in (vi) shows that most of its elements are belonging to class0.
+
+### (b)(viii)
+```{r}
+print(kmean_htru2)
+```
+#### 35.9% variance is explained by the clustering.
+
+### (b)(ix)
+```{r}
+status <- cluster.stats(dist(htru2scaled), kmean_htru2$cluster, silhouette = T)
+status$avg.silwidth
+```
+#### The average Silhouette width of both the clusters is 0.6125963.
+
+### (b)(x)
+```{r}
+status$clus.avg.silwidths
+```
+#### Cluster1 is better because it has higher Silhouette width.
+
+## (c)
+### (c)(i)
+```{r}
+kmean_htru2_12 <- kmeans(pca$x[,1:2], centers = 2)
+fviz_cluster(kmean_htru2_12, data = pca$x[,1:2], main = "PC1,2 (scaled)")
+```
+
+#### All of these three plot has same shape. c(i) and b(i) are similar but the dividing line in c(i) looks more vertival.
+
+### (c)(ii)
+```{r}
+status1 <- cluster.stats(dist(pca$x[,1:2]), kmean_htru2_12$cluster, silhouette = T)
+status1$avg.silwidth
+```
+#### The average Silhouette width of both the clusters is 0.6494315.
+
+### (c)(iii)
+```{r}
+status1$clus.avg.silwidths
+```
+#### Cluster1 is better because it has higher Silhouette width.
+
+### (c)(iv)
+#### Average silhouette width values of c(ii) and c(iii) are larger than b(ix) and b(x) which means in c it has better cluster. Also the average silouette width of better cluster are increased.
