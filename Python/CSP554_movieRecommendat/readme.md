@@ -15,3 +15,5 @@ In this project Using Alternating Least Squares (ALS) algorithm with Spark APIs 
 * Train Model
 	* Using ALS.train function train AlS model.
 	* Validating Model.
+
+###### Acknowledgement of Mr.Gong Chen's help.
