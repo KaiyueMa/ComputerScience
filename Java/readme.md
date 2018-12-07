@@ -1,7 +1,8 @@
-# Codes during my Master's degree
+# Java Project
 
-Hi, this is Kaiyue. 
+Here are java projects finished from Dec.2017 to Dec.2018.
 
-Here is code I wrote, including course assignment and course projects.
-
-Most uses Java, and the rests uses Python and R.
+|Course/Project Name|Description|
+|:---:|:---|
+|[CS401](./CS401_couponIndex)|Course in data structures|
+|[CSP584](./CSP584_enterpriseWebAPP)|Course in enterprise web applications|
