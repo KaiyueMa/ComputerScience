@@ -1,6 +1,6 @@
 # Codes during my Master's degree
 
-Here is code I wrote from Dec.2017 to Dec.2018, including course assignment and course projects.
+Here is code I wrote from Dec.2017 to Dec.2018, including course assignments and course projects.
 
 Most uses Java, and the rests uses Python and R.
 
